@@ -9,7 +9,11 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 public class AwsConnector {
     private AWSCredentials awsCredentials;
 
-    public void setAwsCredentials(AWSCredentials awsCredentials) {
+    public AwsConnector(){
+        setAwsCredentials();
+    }
+
+    public void setAwsCredentials() {
         this.awsCredentials = new ProfileCredentialsProvider().getCredentials();
     }
 
