@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Gregsen/aws-queen.svg?branch=master)](https://travis-ci.org/Gregsen/aws-queen)
+
 #AWS Queen
 ##A unix-ish approach to AWS
 This tool aims to integrate AWS services into the traditional shell. For example Instances or regions will be folders.
