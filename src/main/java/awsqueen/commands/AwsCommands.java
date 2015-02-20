@@ -1,12 +1,20 @@
 package awsqueen.commands;
 
 import awsqueen.aws.AwsConnector;
+import awsqueen.aws.Utils;
+import awsqueen.aws.regions.EuWest1;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.ec2.AmazonEC2Client;
+import com.amazonaws.services.ec2.model.DescribeImagesResult;
+import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import org.springframework.shell.core.CommandMarker;
 import org.springframework.shell.core.annotation.CliCommand;
 import org.springframework.shell.core.annotation.CliOption;
 
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 
 @Component
@@ -18,11 +26,29 @@ public class AwsCommands implements CommandMarker {
         return "here should we run a ls for the context requested";
     }
 
+    @CliCommand(value = "awsinit",help = "Initialise a AWS based directory structure. Run this before erverything else")
+    public void awsInit(){
+
+    }
+
     @CliCommand(value = "awcredentials", help = "Print AWS Crendentials")
     public String credentials(){
         AWSCredentials awsCredentials = awsConnector.getAwsCredentials();
         String output = awsCredentials.getAWSAccessKeyId() + " - " + awsCredentials.getAWSSecretKey();
         return output;
+    }
+
+    @CliCommand(value = "lsec2", help = "")
+    public String lsEc2(){
+        AmazonEC2Client amazonEC2Client = new AmazonEC2Client(awsConnector.getAwsCredentials());
+        DescribeInstancesResult result = amazonEC2Client.describeInstances();
+        return result.toString();
+        //return output;
+        /*EuWest1 euWest1  = new EuWest1();
+        if (euWest1.hasEc2()){
+            return "yeah";
+        }
+        return "nope";*/
     }
 
 }
