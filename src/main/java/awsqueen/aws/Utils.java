@@ -2,9 +2,9 @@ package awsqueen.aws;
 
 import awsqueen.aws.services.AwsServiceProvider;
 import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +31,19 @@ public class Utils {
         }
 
         return regionsList;
+    }
+
+    public void initDirs(){
+        for (Regions region : Regions.values()) {
+            File directory = new File(region.getName());
+            if(!directory.exists()){
+                try {
+                    directory.mkdir();
+                } catch (SecurityException se){
+                    System.out.println("Cannot create directory:" + se);
+                }
+            }
+        }
+
     }
 }

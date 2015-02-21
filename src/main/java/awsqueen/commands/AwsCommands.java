@@ -2,38 +2,32 @@ package awsqueen.commands;
 
 import awsqueen.aws.AwsConnector;
 import awsqueen.aws.Utils;
-import awsqueen.aws.regions.EuWest1;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.DescribeInstancesResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.ec2.AmazonEC2Client;
-import com.amazonaws.services.ec2.model.DescribeImagesResult;
-import com.amazonaws.services.ec2.model.DescribeInstancesResult;
 import org.springframework.shell.core.CommandMarker;
 import org.springframework.shell.core.annotation.CliCommand;
 import org.springframework.shell.core.annotation.CliOption;
 
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
 
 @Component
 public class AwsCommands implements CommandMarker {
-    AwsConnector awsConnector = new AwsConnector();
+    private final AwsConnector awsConnector = new AwsConnector();
 
-    @Autowired
+   /* @Autowired
     private Ec2cli ec2cli;
 
     public AwsCommands(Regions reg) {
         ec2cli.setre
-    }
+    }*/
 
-    @Async
+
     @CliCommand(value = "awq", help = "Print information for this context")
     public String list(@CliOption(key = {"test"}, mandatory = false, help = "as list") final String asList) {
         AmazonEC2Client amazonEC2Client = new AmazonEC2Client(new AwsConnector().getAwsCredentials());
@@ -49,9 +43,9 @@ public class AwsCommands implements CommandMarker {
         return "here should we run a ls for the context requested";
     }
 
-    @CliCommand(value = "awsinit",help = "Initialise a AWS based directory structure. Run this before erverything else")
+    @CliCommand(value = "awsinit",help = "Initialise a AWS based directory structure. Run this before everything else")
     public void awsInit(){
-
+        new Utils().initDirs();
     }
 
     @CliCommand(value = "awcredentials", help = "Print AWS Crendentials")
@@ -64,8 +58,12 @@ public class AwsCommands implements CommandMarker {
     @CliCommand(value = "lsec2", help = "")
     public String lsEc2(){
         AmazonEC2Client amazonEC2Client = new AmazonEC2Client(awsConnector.getAwsCredentials());
+        amazonEC2Client.setRegion(Region.getRegion(Regions.EU_CENTRAL_1));
         DescribeInstancesResult result = amazonEC2Client.describeInstances();
-        return result.toString();
+        if (result.getReservations().size() > 0){
+            return "yay";
+        }
+        return result.getReservations().get(0).toString();
         //return output;
         /*EuWest1 euWest1  = new EuWest1();
         if (euWest1.hasEc2()){
