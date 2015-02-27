@@ -11,14 +11,18 @@
 package awsqueen.aws;
 
 import awsqueen.aws.services.AwsServiceProvider;
+import awsqueen.aws.services.ClientService;
+import awsqueen.aws.services.impl.ClientServiceImpl;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.regions.Regions;
+import com.amazonaws.services.ecs.AmazonECSClient;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by greg on 19.02.15.
@@ -55,6 +59,21 @@ public class Utils {
                     System.out.println("Cannot create directory:" + se);
                 }
             }
+        }
+
+    }
+
+    public void test(){
+        ClientServiceImpl clientService = new ClientServiceImpl();
+        Map<String, Object> allServices = clientService.getAllServices(Regions.AP_NORTHEAST_1);
+
+        for (Object o : allServices.values()) {
+            if ((String) o )
+
+                if o instanceof AmazonEc2Client
+
+                    if string equals ec2
+                    dann (AmazonECSClient) o
         }
 
     }
