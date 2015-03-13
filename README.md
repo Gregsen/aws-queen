@@ -8,13 +8,26 @@ Example:
 
 ```
 AWS
-├── frankfurt
+├── eu-west-1
 │   ├── EC2-Instance1
 │   ├── EC2-Instance2
 │   └── LB1
-└── ireland
+└── us-west-2
     ├── DynamoDB1
     └── ElastiCache1
+```
+
+##Installation
+To install ```awsqueen``` clone via ```git clone https://github.com/Gregsen/aws-queen.git``` and run the install
+script.
+```
+chmod +x install-aws-queen.sh
+sudo  ./install-aws-queen.sh
+```
+That's it (well, almost). The files will be installed under /opt/awsqueen/bin, so make sure, this folder is in
+your PATH.
+```
+PATH=$PATH:/opt/awsqueen/bin
 ```
 
 ###TODO & Questions
