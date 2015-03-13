@@ -16,6 +16,9 @@ AWS
     ├── DynamoDB1
     └── ElastiCache1
 ```
+##Prerequisites
+You need Java 7 for running ```awsqueen```. Additionally, you need [maven](maven.apache.org) for the installation.
+Since the install script is running with sudo, make sure that maven is available for root.
 
 ##Installation
 To install ```awsqueen``` clone via ```git clone https://github.com/Gregsen/aws-queen.git``` and run the install
